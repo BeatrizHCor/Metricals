@@ -1,11 +1,12 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowAltCircleLeft, faArrowAltCircleRight } from '@fortawesome/free-solid-svg-icons';
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import axiosInstance from '../../../config/AxiosInstance';
 import character from '../../../interfaces/Character';
 import Location from '../../../interfaces/Location';
 import './Sheet.css';
 import { useLocation, useNavigate } from 'react-router-dom';
+import sendCharacters from '../../../config/sendCharacter';
 
 function Sheet() {
     const char = useLocation().state as character;
@@ -23,6 +24,12 @@ function Sheet() {
             setLocationResidentsId([]);
         }
     };
+
+    const sendDataC = () => {
+        sendCharacters(char.id)
+    }
+
+    useEffect(sendDataC, [])
 
     const getLocation = useCallback(
         (url: string) => {

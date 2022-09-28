@@ -6,6 +6,8 @@ import CharacterFilters from '../../../interfaces/CharacterFilters';
 import FilterModal from '../Filters/Filters';
 import usePaginatedResult from '../../Hooks/usePaginatedResults';
 import { useNavigate } from 'react-router-dom';
+import sendSearch from '../../../config/sendSearch'
+import sendCharacters from '../../../config/sendCharacter';
 
 export const INITIAL_STATE_CHARACTER: character = {
     id: -1,

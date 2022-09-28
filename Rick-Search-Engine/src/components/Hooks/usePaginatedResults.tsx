@@ -4,11 +4,11 @@ import useLocalStorage from './useLocalStorage';
 import useDebounce from './debouncedSearch';
 import SearchFilters from '../../interfaces/SearchFilters';
 import axiosInstance from '../../config/AxiosInstance';
-
+import sendSearch from '../../config/sendSearch';
 const INITIAL_STATE: SearchFilters = {
     name: '',
 };
-
+    
 const usePaginatedResult = <T, U extends SearchFilters>(route: string) => {
     const [results, setResults] = useState<T[]>([]);
     const [search, setSearch] = useDebounce<U>(INITIAL_STATE as U, 1000);
@@ -16,6 +16,8 @@ const usePaginatedResult = <T, U extends SearchFilters>(route: string) => {
     const [page, setPage] = useState(1);
     const [maxPages, setMaxPages] = useState(1);
     const [count, setCount] = useState(0);
+    
+
 
     const resultsDisplay = useMemo(
         () => (
@@ -65,6 +67,7 @@ const usePaginatedResult = <T, U extends SearchFilters>(route: string) => {
             const value = search[key];
             if (value) {
                 uri += `&${key}=${value}`;
+                sendSearch(key, value);
             }
         }
         if (uri === initialUri) {
@@ -75,8 +78,9 @@ const usePaginatedResult = <T, U extends SearchFilters>(route: string) => {
 
         axiosInstance
             .get(uri)
-            .then((response) => {
+            .then((response: any) => {
                 const { data } = response;
+                
                 if (data.error) {
                     setResults([]);
                     setCount(0);

@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { useCallback, useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import axiosInstance from '../../../config/AxiosInstance';
+import sendCharacters from '../../../config/sendCharacter';
 import character from '../../../interfaces/Character';
 import Location from '../../../interfaces/Location';
 import './LocationsSheet.css';
@@ -65,6 +66,7 @@ function LocationSheet() {
     const loadAndChangeSheet = useCallback(
         (charget: character) => {
             navigate('/CharacterSheet', { state: charget, replace: true });
+
         },
         [navigate]
     );
